@@ -94,7 +94,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-4">
             <Image
-              src="/placeholder.svg?height=60&width=60&text=AZ"
+              src="/logo.png?height=60&width=60&text=AZ"
               alt="Azərbaycan Gerbi"
               width={60}
               height={60}
@@ -125,7 +125,7 @@ export function Header() {
                       {/* RƏSMİ SƏNƏDLƏR */}
                       <div>
                         <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                          <span className="mr-2">🗂</span> RƏSMİ SƏNƏDLƏR
+                          <span className="mr-2"></span> RƏSMİ SƏNƏDLƏR
                         </h3>
                         <ul className="space-y-1 pl-6">
                           <li>
@@ -144,7 +144,7 @@ export function Header() {
                       {/* FONDUN STRUKTURU */}
                       <div>
                         <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                          <span className="mr-2">🏢</span> FONDUN STRUKTURU
+                          <span className="mr-2"></span> FONDUN STRUKTURU
                         </h3>
                         <ul className="space-y-1 pl-6">
                           <li>
@@ -166,7 +166,7 @@ export function Header() {
                       {/* FONDUN FƏALİYYƏTİ */}
                       <div>
                         <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                          <span className="mr-2">⚙️</span> FONDUN FƏALİYYƏTİ
+                          <span className="mr-2"></span> FONDUN FƏALİYYƏTİ
                         </h3>
                         <ul className="space-y-1 pl-6">
                           <li>
@@ -226,7 +226,7 @@ export function Header() {
                       {/* MƏLUMAT BÖLMƏSİ */}
                       <div>
                         <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                          <span className="mr-2">📚</span> MƏLUMAT BÖLMƏSİ
+                          <span className="mr-2"></span> MƏLUMAT BÖLMƏSİ
                         </h3>
                         <ul className="space-y-1 pl-6">
                           <li>
@@ -279,7 +279,7 @@ export function Header() {
                     {/* Column 1 */}
                     <div>
                       <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                        <span className="mr-2">🏁</span> MÜSABİQƏLƏR
+                        <span className="mr-2"></span> MÜSABİQƏLƏR
                       </h3>
                       <ul className="space-y-1 pl-6">
                         <li>
@@ -323,7 +323,7 @@ export function Header() {
                     {/* Column 2 */}
                     <div>
                       <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                        <span className="mr-2">📘</span> KÖMƏKÇİ MATERİALLAR
+                        <span className="mr-2"></span> KÖMƏKÇİ MATERİALLAR
                       </h3>
                       <ul className="space-y-1 pl-6">
                         <li>
@@ -362,7 +362,7 @@ export function Header() {
                     {/* Column 3 */}
                     <div>
                       <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                        <span className="mr-2">✅</span> BAŞA ÇATMIŞ LAYİHƏLƏR
+                        <span className="mr-2"></span> BAŞA ÇATMIŞ LAYİHƏLƏR
                       </h3>
                       <ul className="space-y-1 pl-6">
                         <li>
@@ -419,7 +419,7 @@ export function Header() {
                     {/* Column 1 */}
                     <div>
                       <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                        <span className="mr-2">🔍</span> Elmi Resurslar və Potensial
+                        <span className="mr-2"></span> Elmi Resurslar və Potensial
                       </h3>
                       <ul className="space-y-1 pl-6">
                         <li>
@@ -456,7 +456,7 @@ export function Header() {
                     {/* Column 2 */}
                     <div>
                       <h3 className="font-bold text-blue-900 mb-2 flex items-center">
-                        <span className="mr-2">📚</span> Elmi Nəşrlər və Maarifləndirmə
+                        <span className="mr-2"></span> Elmi Nəşrlər və Maarifləndirmə
                       </h3>
                       <ul className="space-y-1 pl-6">
                         <li>

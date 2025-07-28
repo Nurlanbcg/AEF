@@ -43,7 +43,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative z-0">
                 <Image
-                  src="/placeholder.svg?height=400&width=500&text=Elmi+Tədqiqat"
+                  src="/hero.png?height=400&width=500&text=Elmi+Tədqiqat"
                   alt="Elmi Tədqiqat"
                   width={500}
                   height={400}

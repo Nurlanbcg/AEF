@@ -65,7 +65,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <Image
-              src="/placeholder.svg?height=80&width=80&text=AZ"
+              src="/logo.png?height=80&width=80&text=AZ"
               alt="Azərbaycan Gerbi"
               width={80}
               height={80}
