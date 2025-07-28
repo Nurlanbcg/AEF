@@ -112,17 +112,19 @@ export function Footer() {
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-blue-200 mt-0.5 flex-shrink-0" />
                 <div className="text-sm text-blue-200">
-                  <p>Bakı şəhəri, Nəsimi rayonu</p>
-                  <p>Azadlıq prospekti 33, AZ1000</p>
+                <a href="https://maps.app.goo.gl/1sqeL4zhqa8pFJfH9">
+                  Bakı şəhəri, Nəsimi rayonu
+                  Yusif Səfərov küçəsi-27, 9-cu mərtəbə, AZ1025
+                </a>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-blue-200" />
-                <span className="text-sm text-blue-200">+994 12 123 45 67</span>
+                <a href="tel:+994121234567"className="text-sm text-blue-200">+994 12 123 45 67</a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-blue-200" />
-                <span className="text-sm text-blue-200">info@aef.gov.az</span>
+                <a href="mailto:info@aef.gov.az" className="text-sm text-blue-200">info@aef.gov.az</span>
               </div>
             </div>
           </div>
