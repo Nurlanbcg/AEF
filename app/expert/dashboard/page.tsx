@@ -219,9 +219,7 @@ export default function ExpertDashboard() {
                   <TableHead>Müsabiqə Adı</TableHead>
                   <TableHead>Kateqoriya</TableHead>
                   <TableHead>Son Tarix</TableHead>
-                  <TableHead>Müraciətlər</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Prioritet</TableHead>
                   <TableHead>Əməliyyatlar</TableHead>
                 </TableRow>
               </TableHeader>
@@ -232,9 +230,7 @@ export default function ExpertDashboard() {
                     <TableCell className="font-medium">{competition.title}</TableCell>
                     <TableCell>{competition.category}</TableCell>
                     <TableCell>{competition.deadline}</TableCell>
-                    <TableCell>{competition.applicants}</TableCell>
                     <TableCell>{getStatusBadge(competition.status)}</TableCell>
-                    <TableCell>{getPriorityBadge(competition.priority)}</TableCell>
                     <TableCell>
                       <Button size="sm" variant="outline">
                         Seçim et
