@@ -94,7 +94,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-4">
             <Image
-              src="/placeholder.svg?height=60&width=60&text=AZ"
+              src="/logo.png?height=60&width=60&text=AZ"
               alt="Azərbaycan Gerbi"
               width={60}
               height={60}

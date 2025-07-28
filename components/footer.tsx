@@ -11,7 +11,7 @@ export function Footer() {
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
               <Image
-                src="/placeholder.svg?height=40&width=40&text=AZ"
+                src="/logo.png?height=40&width=40&text=AZ"
                 alt="Azərbaycan Gerbi"
                 width={40}
                 height={40}
