@@ -10,13 +10,7 @@ export function Footer() {
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
-              <Image
-                src="/logo.png?height=40&width=40&text=AZ"
-                alt="Azərbaycan Gerbi"
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
+              <Image src="/logo.png" alt="Azərbaycan Gerbi" width={40} height={40} className="rounded-full" />
               <div>
                 <h3 className="font-bold text-lg">Azərbaycan Elm Fondu</h3>
                 <p className="text-sm text-blue-200">Azərbaycan Prezidenti yanında</p>
@@ -112,19 +106,22 @@ export function Footer() {
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-blue-200 mt-0.5 flex-shrink-0" />
                 <div className="text-sm text-blue-200">
-                <a href="https://maps.app.goo.gl/1sqeL4zhqa8pFJfH9">
-                  Bakı şəhəri, Nəsimi rayonu
-                  Yusif Səfərov küçəsi-27, 9-cu mərtəbə, AZ1025
-                </a>
+                  <a href="https://maps.app.goo.gl/1sqeL4zhqa8pFJfH9">
+                    Bakı şəhəri, Nəsimi rayonu Yusif Səfərov küçəsi-27, 9-cu mərtəbə, AZ1025
+                  </a>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-blue-200" />
-                <a href="tel:+994121234567"className="text-sm text-blue-200">+994 12 123 45 67</a>
+                <a href="tel:+994121234567" className="text-sm text-blue-200">
+                  +994 12 123 45 67
+                </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-blue-200" />
-                <a href="mailto:info@aef.gov.az" className="text-sm text-blue-200">info@aef.gov.az</span>
+                <a href="mailto:info@aef.gov.az" className="text-sm text-blue-200">
+                  info@aef.gov.az
+                </a>
               </div>
             </div>
           </div>

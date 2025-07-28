@@ -42,13 +42,7 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <div className="relative z-0">
-                <Image
-                  src="/hero.png?height=400&width=500&text=Elmi+Tədqiqat"
-                  alt="Elmi Tədqiqat"
-                  width={500}
-                  height={400}
-                  className="rounded-lg shadow-2xl"
-                />
+                <Image src="/hero.png" alt="Elmi Tədqiqat" width={500} height={400} className="rounded-lg shadow-2xl" />
               </div>
               <div className="absolute -top-4 -right-4 w-72 h-72 bg-blue-200 rounded-full opacity-20"></div>
               <div className="absolute -bottom-4 -left-4 w-48 h-48 bg-indigo-200 rounded-full opacity-20"></div>
