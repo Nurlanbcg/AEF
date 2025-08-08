@@ -70,21 +70,11 @@ export function Header() {
               variant="ghost"
               size="sm"
               onClick={() => setLanguage(language === "az" ? "en" : "az")}
-              className="text-white hover:text-blue-200"
+              className="text-white hover:text-blue-500"
             >
               <Globe className="h-4 w-4 mr-1" />
               {language === "az" ? "EN" : "AZ"}
             </Button>
-            <div className="relative group">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-blue-400 transition-colors" />
-                <Input
-                  placeholder="Axtarış..."
-                  className="w-64 h-9 pl-10 pr-4 bg-white/10 border-white/20 text-white placeholder:text-gray-300 focus:bg-white focus:text-gray-900 focus:placeholder:text-gray-500 focus:border-blue-400 transition-all duration-200 rounded-full backdrop-blur-sm"
-                />
-              </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-focus-within:opacity-100 transition-opacity duration-200 -z-10 blur-sm"></div>
-            </div>
           </div>
         </div>
       </div>

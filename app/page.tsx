@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Award, Users, Globe, TrendingUp, ArrowRight, BookOpen, Target, Lightbulb, ChevronRight } from "lucide-react"
+import { Award, Users, Globe, TrendingUp, ArrowRight, BookOpen, Target, Lightbulb, ChevronRight } from 'lucide-react'
 import Link from "next/link"
 import Image from "next/image"
 
@@ -15,37 +15,45 @@ export default function HomePage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-                Elmin
-                <span className="text-blue-600"> Gələcəyini </span>
-                Birlikdə Quraq
+      <section className="relative w-full min-h-[700px] overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/hero-background.png"
+            alt="Modern laboratory with scientists working"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-transparent"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex items-center min-h-[700px]">
+            {/* Left Content */}
+            <div className="max-w-2xl text-white py-16">
+              <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                Elmin Gələcəyini Birlikdə Quraq
               </h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Azərbaycan Elm Fondu ölkəmizdə elmi tədqiqatların maliyyələşdirilməsi və dəstəklənməsi sahəsində aparıcı
-                qurumdur. Bizimlə birlikdə elmin inkişafına töhfə verin.
+              <p className="text-xl text-white/90 leading-relaxed mb-8 max-w-lg">
+                Azərbaycan Elm Fondu ölkəmizdə elmi tədqiqatların maliyyələşdirilməsi və dəstəklənməsi sahəsində aparıcı qurumdur. Bizimlə birlikdə elmin inkişafına töhfə verin.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" asChild>
-                  <Link href="/grants">
-                    Qrant Müsabiqələri
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
+              <div className="flex gap-4">
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-900 hover:bg-gray-100 rounded-full px-10 py-4 text-base font-bold shadow-lg transition-transform hover:scale-105"
+                >
+                  Müraciət et
                 </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/about">Fond Haqqında</Link>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-color-transparent border-white text-white hover:bg-white hover:text-blue-900 rounded-full px-10 py-4 text-base font-bold"
+                >
+                  Ətraflı məlumat
                 </Button>
               </div>
-            </div>
-            <div className="relative">
-              <div className="relative z-0">
-                <Image src="/hero.png" alt="Elmi Tədqiqat" width={500} height={400} className="rounded-lg shadow-2xl" />
-              </div>
-              <div className="absolute -top-4 -right-4 w-72 h-72 bg-blue-200 rounded-full opacity-20"></div>
-              <div className="absolute -bottom-4 -left-4 w-48 h-48 bg-indigo-200 rounded-full opacity-20"></div>
             </div>
           </div>
         </div>
