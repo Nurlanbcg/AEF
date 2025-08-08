@@ -19,7 +19,7 @@ export default function HomePage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/hero-background.png"
+            src="/hero.png"
             alt="Modern laboratory with scientists working"
             fill
             className="object-cover"
