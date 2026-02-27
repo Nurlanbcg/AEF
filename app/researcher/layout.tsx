@@ -13,7 +13,7 @@ export default function ResearcherLayout({ children }: { children: React.ReactNo
     const userType = localStorage.getItem("userType")
 
     if (loggedIn !== "true" || userType !== "İddiaçı") {
-      router.push("/login")
+      router.replace("/login")
     } else {
       setIsAuthed(true)
     }

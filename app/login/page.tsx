@@ -61,7 +61,7 @@ export default function LoginPage() {
         localStorage.setItem("isLoggedIn", "true")
         localStorage.setItem("userType", "İddiaçı")
         localStorage.setItem("userName", "Dr. Aysel Məmmədova")
-        router.push("/researcher/dashboard")
+        router.replace("/researcher/dashboard")
       } else {
         setError("Yanlış email və ya şifrə")
       }
@@ -70,7 +70,7 @@ export default function LoginPage() {
         localStorage.setItem("isLoggedIn", "true")
         localStorage.setItem("userType", "Ekspert")
         localStorage.setItem("userName", "Fuad Məmmədov")
-        router.push("/expert/dashboard")
+        router.replace("/expert/dashboard")
       } else {
         setError("Yanlış email və ya şifrə")
       }
@@ -110,7 +110,7 @@ export default function LoginPage() {
       "İddiaçı": "/researcher/dashboard",
       "Ekspert": "/expert/dashboard",
     }
-    router.push(routeMap[userType] || "/login")
+    router.replace(routeMap[userType] || "/login")
 
     setIsLoading(false)
   }
@@ -123,7 +123,7 @@ export default function LoginPage() {
     localStorage.setItem("isLoggedIn", "true")
     localStorage.setItem("userType", "Fond İnzibatçısı")
     localStorage.setItem("userName", "Sevinc Quliyeva")
-    router.push("/admin/dashboard")
+    router.replace("/admin/dashboard")
 
     setIsLoading(false)
   }
@@ -193,7 +193,7 @@ export default function LoginPage() {
       localStorage.setItem("isLoggedIn", "true")
       localStorage.setItem("userType", "Admin")
       localStorage.setItem("userName", "Admin")
-      router.push("/superadmin/users")
+      router.replace("/superadmin/users")
     } else {
       const newAttempts = pinAttempts + 1
       setPinAttempts(newAttempts)

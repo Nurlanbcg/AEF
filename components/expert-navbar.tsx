@@ -43,7 +43,8 @@ export function ExpertNavbar() {
     localStorage.removeItem("isLoggedIn")
     localStorage.removeItem("userType")
     localStorage.removeItem("userName")
-    router.push("/login")
+    window.history.replaceState(null, "", "/login")
+    router.replace("/login")
   }
 
   return (

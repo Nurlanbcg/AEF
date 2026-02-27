@@ -15,6 +15,8 @@ import {
   Menu,
   Lock,
   X,
+  Newspaper,
+  FileText,
 } from "lucide-react"
 
 const sidebarLinks = [
@@ -23,6 +25,13 @@ const sidebarLinks = [
   { href: "/superadmin/permissions", label: "Səlahiyyətlər", icon: Key },
   { href: "/superadmin/participants", label: "Müsabiqələrin iştirakçıları", icon: Trophy },
 ]
+
+const contentLinks = [
+  { href: "/superadmin/news", label: "Xəbərlər və Bannerlər", icon: Newspaper },
+  { href: "/superadmin/page-content", label: "Səhifə Məzmunu", icon: FileText },
+]
+
+const allLinks = [...sidebarLinks, ...contentLinks]
 
 function SidebarContent({
   pathname,
@@ -47,8 +56,35 @@ function SidebarContent({
       </div>
 
       {/* Nav links */}
-      <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
+      <nav className="flex-1 px-3 py-4 flex flex-col gap-1 overflow-y-auto">
         {sidebarLinks.map((link) => {
+          const isActive = pathname.startsWith(link.href)
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={onLinkClick}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors relative
+                ${
+                  isActive
+                    ? "bg-slate-700/60 text-white"
+                    : "text-slate-400 hover:text-white hover:bg-slate-800"
+                }
+              `}
+            >
+              {isActive && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-red-500 rounded-r-full" />
+              )}
+              <link.icon className="h-[18px] w-[18px]" />
+              {link.label}
+            </Link>
+          )
+        })}
+
+        {/* Separator */}
+        <div className="my-3 mx-2 border-t border-slate-700/50" />
+
+        {contentLinks.map((link) => {
           const isActive = pathname.startsWith(link.href)
           return (
             <Link
@@ -101,7 +137,7 @@ export default function SuperadminLayout({ children }: { children: React.ReactNo
     const loggedIn = localStorage.getItem("isLoggedIn")
     const userType = localStorage.getItem("userType")
     if (loggedIn !== "true" || userType !== "Admin") {
-      router.push("/login")
+      router.replace("/login")
     } else {
       setIsAuthed(true)
     }
@@ -111,7 +147,8 @@ export default function SuperadminLayout({ children }: { children: React.ReactNo
     localStorage.removeItem("isLoggedIn")
     localStorage.removeItem("userType")
     localStorage.removeItem("userName")
-    router.push("/login")
+    window.history.replaceState(null, "", "/login")
+    router.replace("/login")
   }
 
   if (!isAuthed) {
@@ -152,7 +189,7 @@ export default function SuperadminLayout({ children }: { children: React.ReactNo
             </Sheet>
 
             <h1 className="text-sm font-semibold text-gray-800">
-              {sidebarLinks.find((l) => pathname.startsWith(l.href))?.label || "Admin Paneli"}
+              {allLinks.find((l) => pathname.startsWith(l.href))?.label || "Admin Paneli"}
             </h1>
           </div>
 

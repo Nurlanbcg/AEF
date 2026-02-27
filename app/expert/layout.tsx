@@ -13,7 +13,7 @@ export default function ExpertLayout({ children }: { children: React.ReactNode }
     const userType = localStorage.getItem("userType")
 
     if (loggedIn !== "true" || userType !== "Ekspert") {
-      router.push("/login")
+      router.replace("/login")
     } else {
       setIsAuthed(true)
     }

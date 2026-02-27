@@ -13,7 +13,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const userType = localStorage.getItem("userType")
 
     if (loggedIn !== "true" || userType !== "Fond İnzibatçısı") {
-      router.push("/login")
+      router.replace("/login")
     } else {
       setIsAuthed(true)
     }
