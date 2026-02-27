@@ -57,28 +57,6 @@ export function Header() {
 
   return (
     <header className="w-full border-b bg-white">
-      {/* Top Bar */}
-      <div className="bg-blue-900 text-white py-2">
-        <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-4">
-            <span>Azərbaycan Respublikası</span>
-            <span>|</span>
-            <span>Prezident Aparatı</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setLanguage(language === "az" ? "en" : "az")}
-              className="text-white hover:text-blue-500"
-            >
-              <Globe className="h-4 w-4 mr-1" />
-              {language === "az" ? "EN" : "AZ"}
-            </Button>
-          </div>
-        </div>
-      </div>
-
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
@@ -499,7 +477,17 @@ export function Header() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-3">
+            {/* Language Switcher */}
+            <button
+              onClick={() => setLanguage(language === "az" ? "en" : "az")}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 text-sm font-medium text-gray-700 hover:border-blue-300 hover:text-blue-600 transition-colors"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              {language === "az" ? "EN" : "AZ"}
+            </button>
+
+            <div className="hidden lg:block w-px h-6 bg-gray-200" />
             {isLoggedIn ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -568,6 +556,15 @@ export function Header() {
                   <Link href="/contact" className="text-lg font-medium">
                     Əlaqə
                   </Link>
+                  <div className="pt-2 border-t border-gray-200">
+                    <button
+                      onClick={() => setLanguage(language === "az" ? "en" : "az")}
+                      className="flex items-center gap-2 text-base font-medium text-gray-700"
+                    >
+                      <Globe className="h-4 w-4" />
+                      {language === "az" ? "English" : "Azərbaycanca"}
+                    </button>
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>

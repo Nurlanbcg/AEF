@@ -1,300 +1,245 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Filter, Calendar, Users, FileText, ChevronRight } from "lucide-react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { ClipboardCheck, Clock, CheckCircle2 } from "lucide-react"
 
-// Sample competition data
-const competitions = [
+const initialCompetitions = [
   {
-    id: "AEF-2024-001",
-    title: "Süni intellekt və maşın öyrənməsi sahəsində tədqiqatlar",
-    category: "İnformasiya texnologiyaları",
-    deadline: "2024-03-15",
-    applicants: 45,
-    status: "Aktiv",
-    priority: "Yüksək",
+    id: 1,
+    name: "Gənc alimlər üçün qrant müsabiqəsi",
+    stage: "Ekspert seçimi",
+    startDate: "01.03.2025",
+    endDate: "15.03.2025",
   },
   {
-    id: "AEF-2024-002",
-    title: "Bərpa olunan enerji mənbələrinin tədqiqi",
-    category: "Enerji",
-    deadline: "2024-03-20",
-    applicants: 32,
-    status: "Aktiv",
-    priority: "Orta",
+    id: 2,
+    name: "İnnovasiya layihələri müsabiqəsi",
+    stage: "Qiymətləndirmə",
+    startDate: "10.03.2025",
+    endDate: "25.03.2025",
   },
   {
-    id: "AEF-2024-003",
-    title: "Tibbi biotexnologiya və gen terapiyası",
-    category: "Tibb",
-    deadline: "2024-03-25",
-    applicants: 28,
-    status: "Gözləmədə",
-    priority: "Yüksək",
+    id: 3,
+    name: "Beynəlxalq elmi əməkdaşlıq proqramı",
+    stage: "Ekspert seçimi",
+    startDate: "05.04.2025",
+    endDate: "20.04.2025",
   },
   {
-    id: "AEF-2024-004",
-    title: "Kənd təsərrüfatında innovativ texnologiyalar",
-    category: "Kənd təsərrüfatı",
-    deadline: "2024-04-01",
-    applicants: 19,
-    status: "Aktiv",
-    priority: "Aşağı",
-  },
-  {
-    id: "AEF-2024-005",
-    title: "Mühit mühafizəsi və ekoloji tədqiqatlar",
-    category: "Ekoloji",
-    deadline: "2024-04-10",
-    applicants: 37,
-    status: "Yeni",
-    priority: "Orta",
+    id: 4,
+    name: "Tibbi tədqiqatlar üzrə qrant müsabiqəsi",
+    stage: "Tamamlanmış",
+    startDate: "01.01.2025",
+    endDate: "28.02.2025",
   },
 ]
 
+function getStageBadge(stage: string) {
+  switch (stage) {
+    case "Ekspert seçimi":
+      return (
+        <Badge className="bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-100">
+          {stage}
+        </Badge>
+      )
+    case "Qiymətləndirmə":
+      return (
+        <Badge className="bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">
+          {stage}
+        </Badge>
+      )
+    case "Tamamlanmış":
+      return (
+        <Badge className="bg-green-100 text-green-700 border-green-200 hover:bg-green-100">
+          {stage}
+        </Badge>
+      )
+    default:
+      return <Badge variant="secondary">{stage}</Badge>
+  }
+}
+
 export default function ExpertDashboard() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [categoryFilter, setCategoryFilter] = useState("all")
   const router = useRouter()
+  const [competitions, setCompetitions] = useState(initialCompetitions)
 
-  useEffect(() => {
-    // Check if user is logged in and is an expert
-    const checkAuth = () => {
-      if (typeof window !== "undefined") {
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"
-        const userType = localStorage.getItem("userType")
-
-        if (!isLoggedIn || userType !== "Ekspert") {
-          router.push("/login")
-          return
-        }
-
-        // Set login state for header
-        localStorage.setItem("isLoggedIn", "true")
-        localStorage.setItem("userType", "Ekspert")
-        localStorage.setItem("userName", "Nurlan İbrahimov")
+  // Read completed competitions from sessionStorage (set after submission)
+  if (typeof window !== "undefined") {
+    const completed = sessionStorage.getItem("completedCompetitions")
+    if (completed) {
+      const ids: number[] = JSON.parse(completed)
+      const updated = competitions.map((c) =>
+        ids.includes(c.id) ? { ...c, stage: "Tamamlanmış" } : c
+      )
+      if (JSON.stringify(updated) !== JSON.stringify(competitions)) {
+        setCompetitions(updated)
       }
-      setIsLoading(false)
     }
-
-    checkAuth()
-  }, [router])
-
-  const getStatusBadge = (status: string) => {
-    const variants = {
-      Aktiv: "default",
-      Gözləmədə: "secondary",
-      Yeni: "outline",
-    } as const
-
-    return <Badge variant={variants[status as keyof typeof variants] || "default"}>{status}</Badge>
   }
 
-  const getPriorityBadge = (priority: string) => {
-    const variants = {
-      Yüksək: "destructive",
-      Orta: "default",
-      Aşağı: "secondary",
-    } as const
-
-    return <Badge variant={variants[priority as keyof typeof variants] || "default"}>{priority}</Badge>
+  const handleSelect = (competitionId: number) => {
+    router.push(`/expert/competitions/${competitionId}/projects`)
   }
 
-  const filteredCompetitions = competitions.filter((comp) => {
-    const matchesSearch =
-      comp.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      comp.id.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === "all" || comp.status === statusFilter
-    const matchesCategory = categoryFilter === "all" || comp.category === categoryFilter
-
-    return matchesSearch && matchesStatus && matchesCategory
-  })
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    )
+  const summary = {
+    total: competitions.length,
+    selection: competitions.filter((c) => c.stage === "Ekspert seçimi").length,
+    evaluation: competitions.filter((c) => c.stage === "Qiymətləndirmə").length,
+    completed: competitions.filter((c) => c.stage === "Tamamlanmış").length,
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">
+          Qiymətləndirmə üçün təyin edilmiş müsabiqələr
+        </h1>
+        <p className="text-gray-500 mt-1">
+          Sizə təyin edilmiş qrant müsabiqələrini idarə edin
+        </p>
+      </div>
 
-      <main className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-          <span>Ana səhifə</span>
-          <ChevronRight className="h-4 w-4" />
-          <span>Ekspert Paneli</span>
-          <ChevronRight className="h-4 w-4" />
-          <span className="text-blue-600 font-medium">Qrant Müsabiqələri</span>
-        </nav>
-
-        {/* Page Title */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Qrant Müsabiqələri</h1>
-          <p className="text-gray-600">Ekspert kimi təyin edilmiş qrant müsabiqələrini idarə edin və qiymətləndirin</p>
-        </div>
-
-        {/* Filters */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="text-lg">Filtrlər</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input
-                  placeholder="Müsabiqə axtarın..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Bütün statuslar</SelectItem>
-                  <SelectItem value="Aktiv">Aktiv</SelectItem>
-                  <SelectItem value="Gözləmədə">Gözləmədə</SelectItem>
-                  <SelectItem value="Yeni">Yeni</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Kateqoriya" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Bütün kateqoriyalar</SelectItem>
-                  <SelectItem value="İnformasiya texnologiyaları">İnformasiya texnologiyaları</SelectItem>
-                  <SelectItem value="Enerji">Enerji</SelectItem>
-                  <SelectItem value="Tibb">Tibb</SelectItem>
-                  <SelectItem value="Kənd təsərrüfatı">Kənd təsərrüfatı</SelectItem>
-                  <SelectItem value="Ekoloji">Ekoloji</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSearchTerm("")
-                  setStatusFilter("all")
-                  setCategoryFilter("all")
-                }}
-              >
-                Təmizlə
-              </Button>
+      {/* Summary Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4 flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-gray-100">
+              <ClipboardCheck className="h-5 w-5 text-gray-600" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-gray-900">{summary.total}</p>
+              <p className="text-xs text-gray-500">Ümumi müsabiqə</p>
             </div>
           </CardContent>
         </Card>
+        <Card>
+          <CardContent className="p-4 flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-blue-50">
+              <ClipboardCheck className="h-5 w-5 text-blue-600" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-blue-700">{summary.selection}</p>
+              <p className="text-xs text-gray-500">Ekspert seçimi</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-amber-50">
+              <Clock className="h-5 w-5 text-amber-600" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-amber-700">{summary.evaluation}</p>
+              <p className="text-xs text-gray-500">Qiymətləndirmə</p>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-green-50">
+              <CheckCircle2 className="h-5 w-5 text-green-600" />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-green-700">{summary.completed}</p>
+              <p className="text-xs text-gray-500">Tamamlanmış</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* Desktop Table */}
-        <Card className="hidden md:block">
-          <CardHeader>
-            <CardTitle>Müsabiqələr Siyahısı</CardTitle>
-          </CardHeader>
-          <CardContent>
+      {/* Competitions Table */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Müsabiqələr</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Desktop */}
+          <div className="hidden md:block">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Müsabiqə Adı</TableHead>
-                  <TableHead>Kateqoriya</TableHead>
-                  <TableHead>Son Tarix</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Əməliyyatlar</TableHead>
+                  <TableHead>Müsabiqənin adı</TableHead>
+                  <TableHead>Müsabiqənin mərhələsi</TableHead>
+                  <TableHead>Başlama tarixi</TableHead>
+                  <TableHead>Bitmə tarixi</TableHead>
+                  <TableHead className="text-right">Əməliyyatlar</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredCompetitions.map((competition) => (
-                  <TableRow key={competition.id} className="hover:bg-gray-50">
-                    <TableCell className="font-mono text-sm">{competition.id}</TableCell>
-                    <TableCell className="font-medium">{competition.title}</TableCell>
-                    <TableCell>{competition.category}</TableCell>
-                    <TableCell>{competition.deadline}</TableCell>
-                    <TableCell>{getStatusBadge(competition.status)}</TableCell>
-                    <TableCell>
-                      <Button size="sm" variant="outline">
-                        Seçim et
-                      </Button>
+                {competitions.map((comp) => (
+                  <TableRow key={comp.id} className="hover:bg-gray-50/50">
+                    <TableCell className="font-medium">{comp.name}</TableCell>
+                    <TableCell>{getStageBadge(comp.stage)}</TableCell>
+                    <TableCell className="text-gray-600">{comp.startDate}</TableCell>
+                    <TableCell className="text-gray-600">{comp.endDate}</TableCell>
+                    <TableCell className="text-right">
+                      {comp.stage !== "Tamamlanmış" ? (
+                        <Button
+                          size="sm"
+                          onClick={() => handleSelect(comp.id)}
+                        >
+                          Seçim edin
+                        </Button>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-sm text-green-600 font-medium">
+                          <CheckCircle2 className="h-4 w-4" />
+                          Göndərildi
+                        </span>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
+          </div>
 
-        {/* Mobile Cards */}
-        <div className="md:hidden space-y-4">
-          {filteredCompetitions.map((competition) => (
-            <Card key={competition.id} className="hover:shadow-md transition-shadow">
-              <CardHeader className="pb-3">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-base">{competition.title}</CardTitle>
-                    <p className="text-sm text-gray-600 font-mono">{competition.id}</p>
-                  </div>
-                  {getPriorityBadge(competition.priority)}
+          {/* Mobile */}
+          <div className="md:hidden space-y-3">
+            {competitions.map((comp) => (
+              <div
+                key={comp.id}
+                className="p-4 border rounded-lg space-y-3"
+              >
+                <div className="flex justify-between items-start gap-2">
+                  <p className="font-medium text-sm text-gray-900">{comp.name}</p>
+                  {getStageBadge(comp.stage)}
                 </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Kateqoriya:</span>
-                    <span className="text-sm font-medium">{competition.category}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Son tarix:</span>
-                    <span className="text-sm font-medium">{competition.deadline}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Müraciətlər:</span>
-                    <span className="text-sm font-medium">{competition.applicants}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Status:</span>
-                    {getStatusBadge(competition.status)}
-                  </div>
-                  <div className="pt-3">
-                    <Button size="sm" className="w-full">
-                      Seçim et
-                    </Button>
-                  </div>
+                <div className="flex justify-between text-xs text-gray-500">
+                  <span>Başlama: {comp.startDate}</span>
+                  <span>Bitmə: {comp.endDate}</span>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {filteredCompetitions.length === 0 && (
-          <Card>
-            <CardContent className="text-center py-8">
-              <p className="text-gray-500">Heç bir müsabiqə tapılmadı.</p>
-            </CardContent>
-          </Card>
-        )}
-      </main>
-
-      <Footer />
+                {comp.stage !== "Tamamlanmış" ? (
+                  <Button
+                    size="sm"
+                    className="w-full"
+                    onClick={() => handleSelect(comp.id)}
+                  >
+                    Seçim edin
+                  </Button>
+                ) : (
+                  <div className="flex items-center justify-center gap-1 text-sm text-green-600 font-medium py-1">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Göndərildi
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
